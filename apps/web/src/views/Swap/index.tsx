@@ -4,11 +4,13 @@ import { AppBody } from 'components/App'
 import { useContext } from 'react'
 import { useUserSmartRouter } from 'state/user/smartRouter'
 
+import { useSwapHotTokenDisplay } from 'hooks/useSwapHotTokenDisplay'
 import { useCurrency } from '../../hooks/Tokens'
 import { Field } from '../../state/swap/actions'
 import { useSingleTokenSwapInfo, useSwapState } from '../../state/swap/hooks'
 import Page from '../Page'
 import PriceChartContainer from './components/Chart/PriceChartContainer'
+import HotTokenList from './components/HotTokenList'
 import SwapForm from './components/SwapForm'
 import SwapTab, { SwapType } from './components/SwapTab'
 import { SmartSwapForm } from './SmartSwap'
@@ -20,6 +22,7 @@ export default function Swap() {
   const { isMobile } = useMatchBreakpoints()
   const { isChartExpanded, isChartDisplayed, setIsChartDisplayed, setIsChartExpanded, isChartSupported } =
     useContext(SwapFeaturesContext)
+  const [isSwapHotTokenDisplay, setIsSwapHotTokenDisplay] = useSwapHotTokenDisplay()
 
   // swap state & price data
   const {
@@ -70,6 +73,14 @@ export default function Swap() {
             }
             isOpen={isChartDisplayed}
             setIsOpen={setIsChartDisplayed}
+          />
+        )}
+        {!isMobile && isSwapHotTokenDisplay && <HotTokenList />}
+        {isSwapHotTokenDisplay && (
+          <BottomDrawer
+            content={<HotTokenList />}
+            isOpen={isSwapHotTokenDisplay}
+            setIsOpen={setIsSwapHotTokenDisplay}
           />
         )}
         <Flex flexDirection="column">

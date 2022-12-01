@@ -2045,5 +2045,8 @@
   "CAKE staking expired": "CAKE staking expired",
   "Find out more": "Find out more",
   "For the public sale, each eligible participant will be able to commit any amount of CAKE up to the maximum commit limit, which is published along with the IFO voting proposal.": "For the public sale, each eligible participant will be able to commit any amount of CAKE up to the maximum commit limit, which is published along with the IFO voting proposal.",
-  "Volume (24H)": "Volume (24H)"
+  "Volume (24H)": "Volume (24H)",
+  "Token Name": "Token Name",
+  "Change": "Change",
+  "Top Token": "Top Token"
 }

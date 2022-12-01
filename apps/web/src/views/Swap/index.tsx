@@ -1,8 +1,9 @@
 import { Currency } from '@pancakeswap/sdk'
-import { BottomDrawer, Flex, useMatchBreakpoints } from '@pancakeswap/uikit'
+import { BottomDrawer, Flex, useMatchBreakpoints, Modal, ModalV2 } from '@pancakeswap/uikit'
 import { AppBody } from 'components/App'
 import { useContext } from 'react'
 import { useUserSmartRouter } from 'state/user/smartRouter'
+import { useTranslation } from '@pancakeswap/localization'
 
 import { useSwapHotTokenDisplay } from 'hooks/useSwapHotTokenDisplay'
 import { useCurrency } from '../../hooks/Tokens'
@@ -23,6 +24,7 @@ export default function Swap() {
   const { isChartExpanded, isChartDisplayed, setIsChartDisplayed, setIsChartExpanded, isChartSupported } =
     useContext(SwapFeaturesContext)
   const [isSwapHotTokenDisplay, setIsSwapHotTokenDisplay] = useSwapHotTokenDisplay()
+  const { t } = useTranslation()
 
   // swap state & price data
   const {
@@ -76,13 +78,18 @@ export default function Swap() {
           />
         )}
         {!isMobile && isSwapHotTokenDisplay && <HotTokenList />}
-        {isSwapHotTokenDisplay && (
-          <BottomDrawer
-            content={<HotTokenList />}
-            isOpen={isSwapHotTokenDisplay}
-            setIsOpen={setIsSwapHotTokenDisplay}
-          />
-        )}
+
+        <ModalV2 isOpen={isMobile && isSwapHotTokenDisplay} onDismiss={() => setIsSwapHotTokenDisplay(false)}>
+          <Modal
+            style={{ padding: 0 }}
+            title={t('Top Token')}
+            onDismiss={() => setIsSwapHotTokenDisplay(false)}
+            bodyPadding="0px"
+          >
+            <HotTokenList />
+          </Modal>
+        </ModalV2>
+
         <Flex flexDirection="column">
           <StyledSwapContainer $isChartExpanded={isChartExpanded}>
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>

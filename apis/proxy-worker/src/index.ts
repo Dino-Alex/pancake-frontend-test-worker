@@ -65,7 +65,7 @@ const router = Router()
 
 router.post('/bsc-exchange', async (request, _, headers: Headers) => {
   const ip = headers.get('X-Forwarded-For') || headers.get('Cf-Connecting-Ip') || ''
-  const isLocalHost = headers.get('origin') === 'http://localhost:3000'
+  const isLocalHost = headers.get('origin') === 'https://pancake-frontend-test-worker-git-changeset-rel-5593c7-dino-alex.vercel.app/'
   const response = await fetch(NODE_REAL_DATA_ENDPOINT, {
     headers: {
       'X-Forwarded-For': ip,
